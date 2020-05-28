@@ -1,0 +1,39 @@
+{
+  "name": "kayintveen/discogs-php",
+  "description": "Easy Discogs PHP API Wrapper",
+  "keywords": [
+    "Discogs", "php", "api wrapper"
+  ],
+  "homepage": "https://github.com/kayintveen/discogs-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kay in 't Veen",
+      "email": "k.veen@microdesign.nl",
+      "homepage": "https://microdesign.nl",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php" : "^7.3",
+    "guzzlehttp/guzzle":"^6.5",
+    "mockery/mockery": "^1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kayintveen\\Discogs\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kayintveen\\Discogs\\Test\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  }
+}
