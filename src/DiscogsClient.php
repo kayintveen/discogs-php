@@ -2,7 +2,7 @@
 
 namespace Kayintveen\Discogs;
 
-class Discogs
+class DiscogsClient
 {
     public function __construct()
     {
