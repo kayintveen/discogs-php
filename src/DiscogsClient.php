@@ -89,9 +89,11 @@ class DiscogsClient
     }
 
     /**
+     * @param array $query
+     *
      * @return array
      */
-    private function parameters($query): array
+    private function parameters($query = []): array
     {
         $query["token"] = $this->token;
 
