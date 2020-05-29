@@ -58,8 +58,20 @@ class DiscogsClient
     {
         $content = $this->client
             ->get(
-                $this->getUrl('users/%/collection/folders', $username),
+                $this->getUrl("users/{$username}/collection/folders"),
                 $this->parameters()
+            )->getBody()
+            ->getContents();
+
+        return json_decode($content);
+    }
+
+    public function getRecordsFromFolder($username, $folder_id, $perPage = 50, $page = 1) {
+
+        $content = $this->client
+            ->get(
+                $this->getUrl("users/{$username}/collection/folders/{$folder_id}/releases"),
+                $this->parameters(['per_page' => $perPage, 'page' => $page])
             )->getBody()
             ->getContents();
 
@@ -68,26 +80,25 @@ class DiscogsClient
 
     /**
      * @param string $path
-     * @param        $id
      *
      * @return string
      */
-    private function getUrl(string $path, $id): string
+    private function getUrl(string $path): string
     {
-        return self::URL_LIVE . '/' . str_replace('%', $id, $path);
+        return self::URL_LIVE . '/' . $path;
     }
 
     /**
      * @return array
      */
-    private function parameters(): array
+    private function parameters($query): array
     {
+        $query["token"] = $this->token;
+
         return [
             'stream' => true,
             'headers' => ['User-Agent' => self::USER_AGENT],
-            'query' => [
-                "token" => $this->token
-            ],
+            'query' => $query
         ];
     }
 }

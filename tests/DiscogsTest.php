@@ -64,4 +64,28 @@ class DiscogsTest extends TestCase
         $output        = $discogsClient->getFolders('microdesign')->folders->name;
         $this->assertEquals("All", $output);
     }
+
+    public function testGetRecordsFromFolder()
+    {
+        $discogsClient = new DiscogsClient($this->client, "123");
+
+        /** @var mixed $return */
+        $return = json_encode([
+            "count" => 1,
+            "page" => 1,
+            "per_page" => 50,
+            "releases" => []
+        ]);
+
+        $this->client
+            ->shouldReceive('get->getBody->getContents')
+            ->once()
+            ->andReturn($return);
+
+        $output        = $discogsClient->getRecordsFromFolder('microdesign', '0', 50, 1);
+
+        $this->assertObjectHasAttribute("releases", $output);
+    }
+
+
 }
